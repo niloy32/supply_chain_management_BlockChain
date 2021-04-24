@@ -1,0 +1,18 @@
+{
+    "chain": [
+        {
+            "index": 1,
+            "timeStamp": "5:48:40 AM April 2021",
+            "transaction": [],
+            "courses": [],
+            "nonce": 100,
+            "hash": "0",
+            "previousBlockHash": "0",
+            "data": "This is Genesis Block"
+        }
+    ],
+    "PendingTransactions": [],
+    "pending_results": [],
+    "currentNodeUrl": "http://localhost:3501",
+    "networkNodes": []
+}

@@ -1,0 +1,157 @@
+.grid {
+  display: grid;
+  place-items: center;
+  height: 920px;
+  background: rgb(112, 110, 153);
+  background: linear-gradient(
+    90deg,
+    rgba(112, 110, 153, 1) 0%,
+    rgb(105 105 187) 57%,
+    rgba(72, 156, 173, 1) 100%
+  );
+  text-align: center;
+}
+
+.chats {
+  background-color: aqua;
+  border: 2px;
+}
+
+#online_users {
+  background-color: rgb(9, 83, 219);
+}
+
+#login {
+  background-color: #20dc93;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  border: 3px solid rgb(3, 44, 92);
+  margin: 5px;
+  margin-bottom: 10px;
+  opacity: 0.8;
+  font-family: cursive;
+  font-size: larger;
+  margin-top: 1rem;
+  box-shadow: 3px 3px 0px 0px #da05ba;
+  font-weight: bold;
+  font-size: 25px;
+  border-radius: 10px;
+}
+
+label {
+  font-size: 40px;
+  text-align: center;
+  font-family: monospace;
+  margin-left: 10px;
+}
+
+#name,
+#password {
+  /* width: 60%; */
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+#Register {
+  background-color: #04ffd5;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  border: 3px solid rgb(3, 44, 92);
+  margin: 5px;
+  margin-bottom: 10px;
+  opacity: 0.8;
+  font-family: cursive;
+  font-size: larger;
+  margin-top: 1rem;
+  box-shadow: 3px 3px 0px 0px #da05ba;
+}
+
+#checkbox {
+  color: red;
+}
+
+/* //trash */
+
+input[type="checkbox"] {
+  position: relative;
+  width: 5rem;
+  height: 2rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: white;
+  outline: none;
+  border-radius: 2.5rem;
+  box-shadow: inset 0 0 0.5 gray;
+  transition: all 0.45s ease-in-out;
+}
+
+input:checked[type="checkbox"] {
+  background-color: lawngreen;
+}
+
+input:not(:checked)[type="checkbox"] {
+  background-color: #ab2742;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: white;
+  top: 0;
+  left: 0;
+  transition: all 0.45s ease-in-out;
+  transform: scale(1.1);
+}
+
+input:checked[type="checkbox"]::before {
+  left: 3rem;
+}
+
+#index {
+  margin-top: -480px;
+}
+
+#index p,
+h1 {
+  font-family: cursive;
+  font-size: larger;
+  margin-top: -16px;
+  margin-bottom: 18px;
+}
+#index a {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #1a94e6;
+  color: white;
+  padding: 4px 16px;
+  border: none;
+  cursor: pointer;
+  border: 3px solid rgb(3, 44, 92);
+  margin: 5px;
+  margin-bottom: 10px;
+  opacity: 0.8;
+  font-family: cursive;
+  font-size: xxx-large;
+  box-shadow: 3px 3px 0px 0px #ec2d2d;
+  margin-top: 10px;
+}
+
+#course_input {
+  background-color: #2196f3;
+  height: 35px;
+  width: 175px;
+  border-radius: 10px;
+  color: #f1f1f1;
+  margin: 5px 0 22px 0;
+  margin-left: 14px;
+}
