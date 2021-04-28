@@ -27,9 +27,20 @@ app.use(
     })
 );
 //Initializes new BlockChain
-const student_blockchain = new Blockchain();
-fs.writeFileSync('./public/block_Data.json', JSON.stringify(student_blockchain));
-console.log(student_blockchain)
+var student_blockchain = new Blockchain();
+//fs.writeFileSync('./public/block_Data.json', JSON.stringify(student_blockchain.chain));
+var ReadBlock_ChainData = fs.readFileSync("./public/block_Data.json");
+// https student_blockchain.push(JSON.parse(ReadBlock_ChainData));
+var temp = JSON.parse(ReadBlock_ChainData);
+student_blockchain.chain = temp;
+console.log(student_blockchain);
+//fs.writeFileSync('./public/block_Data.json', JSON.stringify(student_blockchain));
+//json_student_blockchain.push(student_blockchain)
+//temp.chain.dd = "setCacheAdda"
+//console.log(temp);
+
+
+
 initializePassport(
     passport,
     function (name) {
@@ -94,6 +105,14 @@ app.post("/transaction/broadcast", function (req, res) {
         id: req.body.course3,
         grade: req.body.courseGrade3,
     } || "3 null";
+    var product_Details = {
+        name = "",
+        model = "",
+        Manufacture_location = "",
+        Manufacture_date = new Date().toLocaleTimeString() + " April 2021",
+
+    }
+    var newTransaction = student_blockchain.createNewStudentResult();
     var newTransaction = student_blockchain.createNewStudentResult(
         req.body.studentName,
         course1,
@@ -119,7 +138,7 @@ app.post("/transaction/broadcast", function (req, res) {
             note: "Data Added and broadcasted successfully",
         });
     });
-    fs.writeFileSync('./public/block_Data.json', JSON.stringify(student_blockchain));
+    fs.writeFileSync('./public/block_Data.json', JSON.stringify(student_blockchain.chain));
 });
 
 //register and brodcast node to the network
@@ -308,6 +327,7 @@ app.get("/mine", function (req, res) {
         block: newBlock,
     });
     //     });
+    fs.writeFileSync('./public/block_Data.json', JSON.stringify(student_blockchain.chain));
 });
 
 app.get("/block/:blockHash", function (req, res) {
