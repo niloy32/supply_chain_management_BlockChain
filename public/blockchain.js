@@ -1,14 +1,12 @@
 const sha256 = require("sha256");
 const currentNodeUrl = process.argv[3] || "http://localhost:3501";
-const {
-  v4: uuidv4
-} = require("uuid");
+const { v4: uuidv4 } = require("uuid");
 const randomWords = require("random-words");
 
 function Blockchain() {
   this.chain = [];
   this.PendingTransactions = [];
-  this.pending_results = [];
+  this.ReadyToShip = [];
   // Genesis BLock
   //CHange later to add data
   this.currentNodeUrl = currentNodeUrl;
@@ -27,14 +25,14 @@ Blockchain.prototype.createNewBlock = function (
     index: this.chain.length + 1,
     timeStamp: new Date().toLocaleTimeString() + " April 2021",
     transaction: this.PendingTransactions,
-    courses: this.pending_results,
+    product_info: this.ReadyToShip,
     nonce: nonce,
     hash: hash,
     previousBlockHash: previousBlockHash,
     data: data,
   };
   this.PendingTransactions = [];
-  this.pending_results = [];
+  this.ReadyToShip = [];
   this.chain.push(newBlock);
 
   return newBlock;
@@ -57,40 +55,29 @@ Blockchain.prototype.createNewTransaction = function (
     amount: amount,
     sender: sender,
     recipient: recipient,
-    data: data || `this data was added at ${new Date().toLocaleTimeString()}` + " ",
-    transactionId: "Administrator Name" || randomWords(5).join("-").toUpperCase(),
+    // data: data || `this data was added at ${new Date().toLocaleTimeString()}` + " ",
+    // transactionId: "Administrator Name" || randomWords(5).join("-").toUpperCase(),
   };
 
   return newTransaction;
 };
 
 //Created new student result;
-Blockchain.prototype.createNewStudentResult = function (
-  studentName,
-  course_1,
-  course_2,
-  course_3,
-  course_4,
-  course_5
-) {
+Blockchain.prototype.createNewStudentResult = function (studentName) {
   const newTransaction = {
-    studentName: studentName,
-    course_1: course_1,
-    course_2: course_2,
-    course_3: course_3,
-    course_4: course_4,
-    course_5: course_5,
-    data: `this data was added at ${new Date().toLocaleTimeString()}` + " ",
-    transactionId: "Administrator Name" || randomWords(5).join("-").toUpperCase(),
+    // studentName: studentName,
+    studentName,
+    // data: `this data was added at ${new Date().toLocaleTimeString()}` + " ",
+    // transactionId: "Administrator Name" || randomWords(5).join("-").toUpperCase(),
   };
 
-  return newTransaction;
+  return studentName;
 };
 
 Blockchain.prototype.addTransactionToPendingTransaction = function (
   transactionObj
 ) {
-  this.pending_results.push(transactionObj);
+  this.ReadyToShip.push(transactionObj);
   return this.getLastBlock()["index"] + 1;
 };
 
@@ -139,8 +126,9 @@ Blockchain.prototype.chainIsValid = function (blockChain) {
 
     //const blockHash = this.hashBlock(prevBlock['hash'], { transaction: currentBlock['transaction'], index: currentBlock['index'] }, currentBlock['nonce']);
     const blockHash = this.hashBlock(
-      prevBlock["hash"], {
-        transaction: currentBlock.courses,
+      prevBlock["hash"],
+      {
+        transaction: currentBlock.product_info,
         index: currentBlock.index,
       },
       currentBlock["nonce"]
@@ -151,7 +139,7 @@ Blockchain.prototype.chainIsValid = function (blockChain) {
       //console.log(currentBlock['nonce'])
       console.log(
         "currentBlock['transaction'] " +
-        JSON.stringify(currentBlock["transaction"])
+          JSON.stringify(currentBlock["transaction"])
       );
       console.log("currentBlock['index'] " + currentBlock["index"]);
       console.log("prevBlock['hash'] " + prevBlock["hash"]);
