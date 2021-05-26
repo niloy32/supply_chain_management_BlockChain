@@ -37,7 +37,7 @@ app.use(
 //Initializes new BlockChain
 var student_blockchain = new Blockchain();
 //fs.writeFileSync('./public/block_Data.json', JSON.stringify(student_blockchain.chain));
-var ReadBlock_ChainData = fs.readFileSync("./public/block_Data.json");
+var ReadBlock_ChainData = fs.readFileSync("./public/block_Data2.json");
 // https student_blockchain.push(JSON.parse(ReadBlock_ChainData));
 var temp = JSON.parse(ReadBlock_ChainData);
 student_blockchain.chain = temp;
@@ -128,9 +128,13 @@ app.post("/transaction/broadcast", function (req, res) {
       note: "Data Added and broadcasted successfully",
     });
   });
+  // fs.writeFileSync(
+  //   "./public/block_Data.json",
+  //   JSON.stringify(student_blockchain.chain)
+  // );
   fs.writeFileSync(
-    "./public/block_Data.json",
-    JSON.stringify(student_blockchain.chain)
+    "./public/block_Data2.json",
+    JSON.stringify(student_blockchain)
   );
 });
 

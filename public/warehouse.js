@@ -3,24 +3,13 @@ var ws = new WebSocket(HOST);
 
 var card_div = document.getElementById("cards");
 
-// for (let index = 0; index < 3; index++) {
-//   var Card_template = document.createElement("div");
-//   Card_template.innerHTML = `<div class="card" style="width: 18rem;">
-// <img src="..." class="card-img-top" alt="...">
-// <div class="card-body">
-//   <h5 class="card-title">Card title</h5>
-//   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-//   <a href="#" class="btn btn-primary">Go somewhere</a>
-// </div>
-// </div>`;
-//   card_div.append(Card_template);
-// }
-
 ws.addEventListener("open", () => {
   console.log("WE Are connected");
 });
 
-ws.addEventListener("message", ({ data }) => {
+ws.addEventListener("message", ({
+  data
+}) => {
   let parseData = JSON.parse(data);
   //console.log("received:", parseData);
   var product_data = [];
@@ -67,6 +56,7 @@ ws.addEventListener("message", ({ data }) => {
 });
 
 function readTextFile(file, callback) {
+  ``;
   var rawFile = new XMLHttpRequest();
   rawFile.overrideMimeType("application/json");
   rawFile.open("GET", file, true);
@@ -79,21 +69,82 @@ function readTextFile(file, callback) {
 }
 //usage:
 var ReadBlock_ChainData;
-readTextFile("block_Data.json", function (text) {
+readTextFile("block_Data2.json", function (text) {
   ReadBlock_ChainData = JSON.parse(text);
+  console.log(ReadBlock_ChainData);
+  console.log(ReadBlock_ChainData.ReadyToShip);
 
   ////////////////////////////////////////////////////////////////
-  for (var index = 1; index < ReadBlock_ChainData.length; index++) {
+  for (var index = 1; index < ReadBlock_ChainData.chain.length; index++) {
     var Card_template = document.createElement("div");
     Card_template.setAttribute("class", "icards");
     Card_template.innerHTML = `<div class="card" style="width: 18rem;">
-    <img src="${ReadBlock_ChainData[index].product_info[0].img_url}" alt="...">
+    <img src="${ReadBlock_ChainData.chain[index].product_info[0].img_url}" alt="...">
     <div class="card-body">
-      <h5 class="card-title">${ReadBlock_ChainData[index].product_info[0].name}</h5>
-      <p class="card-text">${ReadBlock_ChainData[index].product_info[0].Description}</p>
+      <h5 class="card-title">${ReadBlock_ChainData.chain[index].product_info[0].name}</h5>
+      <p class="card-text">${ReadBlock_ChainData.chain[index].product_info[0].Description}</p>
       <a href="#" class="btn btn-primary">Ship to Retail Store</a>
     </div>
     </div>`;
-    card_div.append(Card_template);
+    //card_div.append(Card_template);
+  }
+  for (var index = 1; index < ReadBlock_ChainData.chain.length; index++) {
+    function send_to_store(block) {
+      console.log(block);
+    }
+
+    //var Card_template = document.createElement("div");
+    var table = document.getElementById("table_data");
+    var row = table.insertRow(-1);
+    var cell1 = row.insertCell(-1);
+    var cell2 = row.insertCell(-1);
+    var cell3 = row.insertCell(-1);
+    var cell4 = row.insertCell(-1);
+    var cell5 = row.insertCell(-1);
+    cell5.setAttribute("href", "www.google.com");
+    cell1.innerHTML = ReadBlock_ChainData.chain[index].hash;
+    cell2.innerHTML = ReadBlock_ChainData.chain[index].product_info[0].name;
+    cell3.innerHTML =
+      ReadBlock_ChainData.chain[index].product_info[0].Description;
+    cell4.innerHTML =
+      ReadBlock_ChainData.chain[index].product_info[0].Manufacture_location;
+
+    var link = `<td>
+    <a href=${ReadBlock_ChainData.chain[index].product_info[0].img_url}>
+      <div style="height:100%;width:100%">
+      ${ReadBlock_ChainData.chain[index].product_info[0].img_url}
+      </div>
+    </a>
+    
+    <button id="${ReadBlock_ChainData.chain[index].hash}">XD</button>
+  </td>`;
+    cell5.innerHTML = link;
+    var something2 = ReadBlock_ChainData.chain[index];
+
+    function something(block, index) {
+      console.log("this " + index);
+      Object.assign(block, {
+        ShippedToStore: "Yes",
+      });
+      console.log(ReadBlock_ChainData);
+    }
+
+    //document.getElementById(ReadBlock_ChainData.chain[index].hash).addEventListener("click", something(something2), false);
+    document.getElementById(ReadBlock_ChainData.chain[index].hash).addEventListener("click", function () {
+      something(ReadBlock_ChainData.chain[0], index)
+    });
+
+
+    //console.log(ReadBlock_ChainData);
+    var row = table.insertRow(0);
+    // Object.assign(ReadBlock_ChainData.chain[index], { key3: "value3" });
+    // console.log(ReadBlock_ChainData);
+    //Card_template.setAttribute("class", "icards");
+
+    //document.getElementById("table_data").append(Card_template);
   }
 });
+
+// $(function () {
+//   $("#table_data").bootstrapTable();
+// });
