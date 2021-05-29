@@ -383,7 +383,25 @@ wss.on("connection", (ws) => {
   //     console.log("send data");
   //   });
   //ws.send(ReadBlock_ChainData);
+
+  ws.on("message", (data) => {
+    //sendAll(data);
+    //console.log("this is from client data " + data);
+    let parseData = JSON.parse(data);
+    console.log(parseData.chain);
+    if (parseData.hasOwnProperty("chain")) {
+      fs.writeFileSync(
+        "./public/block_Data3.json",
+        JSON.stringify(parseData)
+      );
+      console.log("yes");
+    }
+    //console.log(`Client has sent us Message :${parseData.chatData}`);
+
+  });
+
 });
+
 
 function sendAll(data) {
   for (let i = 0; i < clients.length; i++) {

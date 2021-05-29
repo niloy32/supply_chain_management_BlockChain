@@ -1,6 +1,8 @@
 const sha256 = require("sha256");
 const currentNodeUrl = process.argv[3] || "http://localhost:3501";
-const { v4: uuidv4 } = require("uuid");
+const {
+  v4: uuidv4
+} = require("uuid");
 const randomWords = require("random-words");
 
 function Blockchain() {
@@ -23,7 +25,7 @@ Blockchain.prototype.createNewBlock = function (
 ) {
   const newBlock = {
     index: this.chain.length + 1,
-    timeStamp: new Date().toLocaleTimeString() + " April 2021",
+    timeStamp: new Date().toLocaleTimeString() + " May 2021",
     transaction: this.PendingTransactions,
     product_info: this.ReadyToShip,
     nonce: nonce,
@@ -126,8 +128,7 @@ Blockchain.prototype.chainIsValid = function (blockChain) {
 
     //const blockHash = this.hashBlock(prevBlock['hash'], { transaction: currentBlock['transaction'], index: currentBlock['index'] }, currentBlock['nonce']);
     const blockHash = this.hashBlock(
-      prevBlock["hash"],
-      {
+      prevBlock["hash"], {
         transaction: currentBlock.product_info,
         index: currentBlock.index,
       },
@@ -139,7 +140,7 @@ Blockchain.prototype.chainIsValid = function (blockChain) {
       //console.log(currentBlock['nonce'])
       console.log(
         "currentBlock['transaction'] " +
-          JSON.stringify(currentBlock["transaction"])
+        JSON.stringify(currentBlock["transaction"])
       );
       console.log("currentBlock['index'] " + currentBlock["index"]);
       console.log("prevBlock['hash'] " + prevBlock["hash"]);

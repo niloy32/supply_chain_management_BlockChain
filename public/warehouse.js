@@ -1,6 +1,5 @@
 var HOST = location.origin.replace(/^http/, "ws");
 var ws = new WebSocket(HOST);
-
 var card_div = document.getElementById("cards");
 
 ws.addEventListener("open", () => {
@@ -40,7 +39,6 @@ ws.addEventListener("message", ({
   // </div>`;
   //   card_div.append(Card_template);
   // }
-
   for (var property in product_data) {
     //console.log(product_data);
   }
@@ -67,12 +65,17 @@ function readTextFile(file, callback) {
   };
   rawFile.send(null);
 }
+
+let requestURL = 'https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json';
+let request = new XMLHttpRequest();
+
+
 //usage:
 var ReadBlock_ChainData;
-readTextFile("block_Data2.json", function (text) {
+readTextFile("block_Data3.json", function (text) {
+
   ReadBlock_ChainData = JSON.parse(text);
   console.log(ReadBlock_ChainData);
-  console.log(ReadBlock_ChainData.ReadyToShip);
 
   ////////////////////////////////////////////////////////////////
   for (var index = 1; index < ReadBlock_ChainData.chain.length; index++) {
@@ -112,11 +115,10 @@ readTextFile("block_Data2.json", function (text) {
     var link = `<td>
     <a href=${ReadBlock_ChainData.chain[index].product_info[0].img_url}>
       <div style="height:100%;width:100%">
-      ${ReadBlock_ChainData.chain[index].product_info[0].img_url}
       </div>
     </a>
     
-    <button id="${ReadBlock_ChainData.chain[index].hash}">XD</button>
+    <button id="${ReadBlock_ChainData.chain[index].hash}" class="btn btn-info">Ship To Store</button>
   </td>`;
     cell5.innerHTML = link;
     var something2 = ReadBlock_ChainData.chain[index];
@@ -130,8 +132,17 @@ readTextFile("block_Data2.json", function (text) {
     }
 
     //document.getElementById(ReadBlock_ChainData.chain[index].hash).addEventListener("click", something(something2), false);
+    // document.getElementById(ReadBlock_ChainData.chain[index].hash).addEventListener("click", function () {
+    //   something(ReadBlock_ChainData.chain[0], index)
+    // });
     document.getElementById(ReadBlock_ChainData.chain[index].hash).addEventListener("click", function () {
-      something(ReadBlock_ChainData.chain[0], index)
+      ReadBlock_ChainData.chain.forEach(element => {
+        if (element.hash == this.id) {
+          element.ShippedToStore = true;
+          console.log(element);
+          ws.send(JSON.stringify(ReadBlock_ChainData));
+        }
+      });
     });
 
 
