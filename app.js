@@ -40,7 +40,7 @@ var student_blockchain = new Blockchain();
 var ReadBlock_ChainData = fs.readFileSync("./public/block_Data2.json");
 // https student_blockchain.push(JSON.parse(ReadBlock_ChainData));
 var temp = JSON.parse(ReadBlock_ChainData);
-student_blockchain.chain = temp;
+student_blockchain.chain = temp.chain;
 //console.log(student_blockchain);
 //fs.writeFileSync('./public/block_Data.json', JSON.stringify(student_blockchain));
 //json_student_blockchain.push(student_blockchain)
@@ -329,7 +329,7 @@ app.get("/mine", function (req, res) {
   //     });
   fs.writeFileSync(
     "./public/block_Data.json",
-    JSON.stringify(student_blockchain.chain)
+    JSON.stringify(student_blockchain)
   );
 });
 
@@ -365,11 +365,12 @@ app.get("/warehouse", function (req, res) {
   res.sendFile("./public/warehouse.html", {
     root: __dirname,
   });
-  // res.json({
-  //     message: 'Hello World'
-  // });
 });
-
+app.get("/store_dhaka", function (req, res) {
+  res.sendFile("./public/store.html", {
+    root: __dirname,
+  });
+});
 // app.listen(PORT, function () {
 //     console.log("server running on port" + PORT);
 // });

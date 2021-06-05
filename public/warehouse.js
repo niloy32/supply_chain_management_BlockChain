@@ -54,7 +54,6 @@ ws.addEventListener("message", ({
 });
 
 function readTextFile(file, callback) {
-  ``;
   var rawFile = new XMLHttpRequest();
   rawFile.overrideMimeType("application/json");
   rawFile.open("GET", file, true);
@@ -91,69 +90,92 @@ readTextFile("block_Data3.json", function (text) {
     </div>`;
     //card_div.append(Card_template);
   }
-  for (var index = 1; index < ReadBlock_ChainData.chain.length; index++) {
-    function send_to_store(block) {
-      console.log(block);
-    }
 
-    //var Card_template = document.createElement("div");
-    var table = document.getElementById("table_data");
-    var row = table.insertRow(-1);
-    var cell1 = row.insertCell(-1);
-    var cell2 = row.insertCell(-1);
-    var cell3 = row.insertCell(-1);
-    var cell4 = row.insertCell(-1);
-    var cell5 = row.insertCell(-1);
-    cell5.setAttribute("href", "www.google.com");
-    cell1.innerHTML = ReadBlock_ChainData.chain[index].hash;
-    cell2.innerHTML = ReadBlock_ChainData.chain[index].product_info[0].name;
-    cell3.innerHTML =
-      ReadBlock_ChainData.chain[index].product_info[0].Description;
-    cell4.innerHTML =
-      ReadBlock_ChainData.chain[index].product_info[0].Manufacture_location;
+  function render_list() {
+    for (var index = 1; index < ReadBlock_ChainData.chain.length; index++) {
+      if (ReadBlock_ChainData.chain[index].ShippedToStore != true) {
+        console.log(ReadBlock_ChainData.chain[index].ShippedToStore);
 
-    var link = `<td>
+        //var Card_template = document.createElement("div");
+        var table = document.getElementById("table_data");
+        var row = table.insertRow(-1);
+        var cell1 = row.insertCell(-1);
+        var cell2 = row.insertCell(-1);
+        var cell3 = row.insertCell(-1);
+        var cell4 = row.insertCell(-1);
+        var cell5 = row.insertCell(-1);
+        var cell6 = row.insertCell(-1);
+        cell5.setAttribute("href", "www.google.com");
+        cell1.innerHTML = ReadBlock_ChainData.chain[index].hash;
+        cell2.innerHTML = ReadBlock_ChainData.chain[index].product_info[0].name;
+        cell3.innerHTML =
+          ReadBlock_ChainData.chain[index].product_info[0].Description;
+        cell4.innerHTML =
+          ReadBlock_ChainData.chain[index].product_info[0].Manufacture_location;
+
+        var link = `<td>
     <a href=${ReadBlock_ChainData.chain[index].product_info[0].img_url}>
       <div style="height:100%;width:100%">
       </div>
     </a>
-    
+    <select name="city" id="Retail_store" class="form-select form-select-lg mb-3" >
+  <option value="Dhaka">Dhaka</option>
+  <option value="CTG">Ctg</option>
+  <option value="Rajshahi">Rajshahi</option>
+  <option value="Barisal">Barisal</option>
+</select>
     <button id="${ReadBlock_ChainData.chain[index].hash}" class="btn btn-info">Ship To Store</button>
+    <button id="Damaged${index}" class="btn btn-danger">Damaged</button>
+    
   </td>`;
-    cell5.innerHTML = link;
-    var something2 = ReadBlock_ChainData.chain[index];
+        cell6.innerHTML =
+          ReadBlock_ChainData.chain[index].product_info[0].Manufacture_date;
+        cell5.innerHTML = link;
+        var something2 = ReadBlock_ChainData.chain[index];
 
-    function something(block, index) {
-      console.log("this " + index);
-      Object.assign(block, {
-        ShippedToStore: "Yes",
-      });
-      console.log(ReadBlock_ChainData);
-    }
+        document.getElementById("Damaged" + index).addEventListener("click", function () {
+          this.parentElement.parentElement.remove();
+        })
 
-    //document.getElementById(ReadBlock_ChainData.chain[index].hash).addEventListener("click", something(something2), false);
-    // document.getElementById(ReadBlock_ChainData.chain[index].hash).addEventListener("click", function () {
-    //   something(ReadBlock_ChainData.chain[0], index)
-    // });
-    document.getElementById(ReadBlock_ChainData.chain[index].hash).addEventListener("click", function () {
-      ReadBlock_ChainData.chain.forEach(element => {
-        if (element.hash == this.id) {
-          element.ShippedToStore = true;
-          console.log(element);
-          ws.send(JSON.stringify(ReadBlock_ChainData));
+        //template function for later uses
+        function something(block, index) {
+          console.log("this " + index);
+          Object.assign(block, {
+            ShippedToStore: "Yes",
+          });
+          console.log(ReadBlock_ChainData);
         }
-      });
-    });
+
+        //document.getElementById(ReadBlock_ChainData.chain[index].hash).addEventListener("click", something(something2), false);
+        // document.getElementById(ReadBlock_ChainData.chain[index].hash).addEventListener("click", function () {
+        //   something(ReadBlock_ChainData.chain[0], index)
+        // });
+        document.getElementById(ReadBlock_ChainData.chain[index].hash).addEventListener("click", function () {
+          ReadBlock_ChainData.chain.forEach(element => {
+            if (element.hash == this.id) {
+              element.ShippedToStore = false;
+              element.Retail_store = document.getElementById("Retail_store").value;
+              console.log(document.getElementById("Retail_store").value);
+              console.log(element);
+              ws.send(JSON.stringify(ReadBlock_ChainData));
+              document.getElementById(this.id).parentElement.parentElement.remove();
+              //render_list();
+            }
+          });
+        });
 
 
-    //console.log(ReadBlock_ChainData);
-    var row = table.insertRow(0);
-    // Object.assign(ReadBlock_ChainData.chain[index], { key3: "value3" });
-    // console.log(ReadBlock_ChainData);
-    //Card_template.setAttribute("class", "icards");
+        //console.log(ReadBlock_ChainData);
+        var row = table.insertRow(0);
+        // Object.assign(ReadBlock_ChainData.chain[index], { key3: "value3" });
+        // console.log(ReadBlock_ChainData);
+        //Card_template.setAttribute("class", "icards");
 
-    //document.getElementById("table_data").append(Card_template);
+        //document.getElementById("table_data").append(Card_template);
+      }
+    }
   }
+  render_list();
 });
 
 // $(function () {

@@ -27,7 +27,8 @@
             "nonce": 4028,
             "hash": "2021f9763f13e1d65597b4ed9724aa508ca369a63d518a65922f5ce7ba47758f",
             "previousBlockHash": "0",
-            "ShippedToStore": true
+            "ShippedToStore": false,
+            "Retail_store": "Dhaka"
         },
         {
             "index": 3,
@@ -45,7 +46,9 @@
             ],
             "nonce": 102883,
             "hash": "2021c66388c10141f3a4ea64bd22c9d40ba351a84f60e0c1b29518b3794be494",
-            "previousBlockHash": "2021f9763f13e1d65597b4ed9724aa508ca369a63d518a65922f5ce7ba47758f"
+            "previousBlockHash": "2021f9763f13e1d65597b4ed9724aa508ca369a63d518a65922f5ce7ba47758f",
+            "ShippedToStore": false,
+            "Retail_store": "Dhaka"
         },
         {
             "index": 4,
@@ -63,20 +66,33 @@
             ],
             "nonce": 45657,
             "hash": "2021e16946c3d0c41ce6fb2f5d11132076f797cf15cf9ab42125b5bf3b0844c3",
-            "previousBlockHash": "2021c66388c10141f3a4ea64bd22c9d40ba351a84f60e0c1b29518b3794be494"
+            "previousBlockHash": "2021c66388c10141f3a4ea64bd22c9d40ba351a84f60e0c1b29518b3794be494",
+            "ShippedToStore": false,
+            "Retail_store": "Dhaka"
+        },
+        {
+            "index": 5,
+            "timeStamp": "2:53:00 PM May 2021",
+            "transaction": [],
+            "product_info": [
+                {
+                    "name": "test",
+                    "Description": "XX",
+                    "Manufacture_location": "china",
+                    "Batch": "669",
+                    "img_url": "https://blog.foswiki.org/pub/Main/AsdfAlksjdf/Image_upload_test.jpg",
+                    "Manufacture_date": "2021-05-31"
+                }
+            ],
+            "nonce": 5342,
+            "hash": "2021459c27041f8691b162cb074d3e42e0c3788ccbd28da21ff5f2d8f03f68cb",
+            "previousBlockHash": "2021e16946c3d0c41ce6fb2f5d11132076f797cf15cf9ab42125b5bf3b0844c3",
+            "ShippedToStore": false,
+            "Retail_store": "Dhaka"
         }
     ],
     "PendingTransactions": [],
-    "ReadyToShip": [
-        {
-            "name": "test",
-            "Description": "test",
-            "Manufacture_location": "1",
-            "Batch": "010",
-            "img_url": "nothing",
-            "Manufacture_date": "2021-05-23"
-        }
-    ],
+    "ReadyToShip": [],
     "currentNodeUrl": "http://localhost:3501",
     "networkNodes": []
 }

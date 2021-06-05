@@ -5,9 +5,9 @@
   background: rgb(112, 110, 153);
   background: linear-gradient(
     90deg,
-    rgba(112, 110, 153, 1) 0%,
-    rgb(105 105 187) 57%,
-    rgba(72, 156, 173, 1) 100%
+    rgb(140 204 175) 0%,
+    rgb(88 216 128) 57%,
+    rgb(132 193 162) 100%
   );
   text-align: center;
 }
@@ -22,7 +22,7 @@
 }
 
 #login {
-  background-color: #20dc93;
+  background-color: #204cdc;
   color: white;
   padding: 16px 20px;
   border: none;
@@ -154,4 +154,18 @@ h1 {
   color: #f1f1f1;
   margin: 5px 0 22px 0;
   margin-left: 14px;
+}
+
+.form-floating label {
+  padding: 0;
+  font-size: 2rem;
+}
+
+h1 {
+  font-size: 4rem;
+  margin-top: 10rem;
+}
+
+.form-control {
+  width: 500px;
 }

@@ -69,11 +69,11 @@
     "ReadyToShip": [
         {
             "name": "test",
-            "Description": "test",
-            "Manufacture_location": "1",
-            "Batch": "010",
-            "img_url": "nothing",
-            "Manufacture_date": "2021-05-23"
+            "Description": "XX",
+            "Manufacture_location": "china",
+            "Batch": "669",
+            "img_url": "ad",
+            "Manufacture_date": "2021-05-31"
         }
     ],
     "currentNodeUrl": "http://localhost:3501",
