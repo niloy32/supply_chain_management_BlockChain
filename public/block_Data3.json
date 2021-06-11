@@ -19,7 +19,7 @@
                     "name": "iphone",
                     "Description": "XX",
                     "Manufacture_location": "china",
-                    "Batch": "669",
+                    "Batch": "43253235",
                     "img_url": "https://www.gizmochina.com/wp-content/uploads/2019/09/Apple-iPhone-11-Pro-500x500.jpg",
                     "Manufacture_date": "2021-05-12"
                 }
@@ -39,7 +39,7 @@
                     "name": "samsung",
                     "Description": "Note 10 Pro",
                     "Manufacture_location": "japan",
-                    "Batch": "02",
+                    "Batch": "235235",
                     "img_url": "https://www.gizmochina.com/wp-content/uploads/2019/06/Samsung-Galaxy-Note10-Pro.jpg",
                     "Manufacture_date": "2021-05-12"
                 }
@@ -59,7 +59,7 @@
                     "name": "vaio",
                     "Description": "Laptop",
                     "Manufacture_location": "India",
-                    "Batch": "654",
+                    "Batch": "2335235",
                     "img_url": "https://cdn.reinisfischer.com/sites/default/files/upload/1_220.jpg",
                     "Manufacture_date": "2021-05-23"
                 }
@@ -79,7 +79,7 @@
                     "name": "test",
                     "Description": "XX",
                     "Manufacture_location": "china",
-                    "Batch": "669",
+                    "Batch": "3454353",
                     "img_url": "https://blog.foswiki.org/pub/Main/AsdfAlksjdf/Image_upload_test.jpg",
                     "Manufacture_date": "2021-05-31"
                 }

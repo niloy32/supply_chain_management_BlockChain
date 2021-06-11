@@ -105,6 +105,7 @@ readTextFile("block_Data3.json", function (text) {
         var cell4 = row.insertCell(-1);
         var cell5 = row.insertCell(-1);
         var cell6 = row.insertCell(-1);
+        var cell7 = row.insertCell(-1);
         cell5.setAttribute("href", "www.google.com");
         cell1.innerHTML = ReadBlock_ChainData.chain[index].hash;
         cell2.innerHTML = ReadBlock_ChainData.chain[index].product_info[0].name;
@@ -120,17 +121,17 @@ readTextFile("block_Data3.json", function (text) {
     </a>
     <select name="city" id="Retail_store" class="form-select form-select-lg mb-3" >
   <option value="Dhaka">Dhaka</option>
-  <option value="CTG">Ctg</option>
+  <option value="CTG">CTG</option>
   <option value="Rajshahi">Rajshahi</option>
   <option value="Barisal">Barisal</option>
 </select>
     <button id="${ReadBlock_ChainData.chain[index].hash}" class="btn btn-info">Ship To Store</button>
     <button id="Damaged${index}" class="btn btn-danger">Damaged</button>
-    
   </td>`;
         cell6.innerHTML =
           ReadBlock_ChainData.chain[index].product_info[0].Manufacture_date;
         cell5.innerHTML = link;
+        cell7.innerHTML = ReadBlock_ChainData.chain[index].product_info[0].Batch;
         var something2 = ReadBlock_ChainData.chain[index];
 
         document.getElementById("Damaged" + index).addEventListener("click", function () {

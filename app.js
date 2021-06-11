@@ -398,9 +398,7 @@ wss.on("connection", (ws) => {
       console.log("yes");
     }
     //console.log(`Client has sent us Message :${parseData.chatData}`);
-
   });
-
 });
 
 
