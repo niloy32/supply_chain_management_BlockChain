@@ -35,15 +35,15 @@ app.use(
 );
 
 //Initializes new BlockChain
-var student_blockchain = new Blockchain();
-//fs.writeFileSync('./public/block_Data.json', JSON.stringify(student_blockchain.chain));
-var ReadBlock_ChainData = fs.readFileSync("./public/block_Data2.json");
-// https student_blockchain.push(JSON.parse(ReadBlock_ChainData));
+var BlockChain_Meta_info = new Blockchain();
+//fs.writeFileSync('./public/block_Data.json', JSON.stringify(BlockChain_Meta_info.chain));
+var ReadBlock_ChainData = fs.readFileSync("./public/block_Data3.json");
+// https BlockChain_Meta_info.push(JSON.parse(ReadBlock_ChainData));
 var temp = JSON.parse(ReadBlock_ChainData);
-student_blockchain.chain = temp.chain;
-//console.log(student_blockchain);
-//fs.writeFileSync('./public/block_Data.json', JSON.stringify(student_blockchain));
-//json_student_blockchain.push(student_blockchain)
+BlockChain_Meta_info.chain = temp.chain;
+//console.log(BlockChain_Meta_info);
+//fs.writeFileSync('./public/block_Data.json', JSON.stringify(BlockChain_Meta_info));
+//json_BlockChain_Meta_info.push(BlockChain_Meta_info)
 //temp.chain.dd = "setCacheAdda"
 //console.log(temp);
 
@@ -68,7 +68,7 @@ app.get("/login", function (req, res) {
   });
 });
 app.get("/blockchain", function (req, res) {
-  res.send(student_blockchain);
+  res.send(BlockChain_Meta_info);
 });
 app.get("/userI", function (req, res) {
   res.sendFile("./public/userI.html", {
@@ -92,7 +92,7 @@ app.post(
 app.post("/transaction", function (req, res) {
   var newTransaction = req.body;
   var blockIndex =
-    student_blockchain.addTransactionToPendingTransaction(newTransaction);
+    BlockChain_Meta_info.addTransactionToPendingTransaction(newTransaction);
   res.json({
     note: "Transaction will be added in block " + blockIndex + ".",
   });
@@ -106,15 +106,15 @@ app.post("/transaction/broadcast", function (req, res) {
     img_url: req.body.img_url,
     Manufacture_date: new Date().toISOString().slice(0, 10),
   };
-  //var newTransaction = student_blockchain.createNewStudentResult();
+  //var newTransaction = BlockChain_Meta_info.createNewStudentResult();
   var newTransaction =
-    student_blockchain.createNewStudentResult(product_Details);
-  student_blockchain.addTransactionToPendingTransaction(newTransaction);
+    BlockChain_Meta_info.createNewStudentResult(product_Details);
+  BlockChain_Meta_info.addTransactionToPendingTransaction(newTransaction);
   //makes a promise that will push the new transaction info to other nodes
   var requestPromise = [];
-  // gets all the node info from student_blockchain.networkNodes and sends them the transaction info
+  // gets all the node info from BlockChain_Meta_info.networkNodes and sends them the transaction info
   // one by one to other nodes
-  student_blockchain.networkNodes.forEach(function (networkNodeUrl) {
+  BlockChain_Meta_info.networkNodes.forEach(function (networkNodeUrl) {
     var requestOption = {
       uri: networkNodeUrl + "/transaction",
       method: "POST",
@@ -130,11 +130,11 @@ app.post("/transaction/broadcast", function (req, res) {
   });
   // fs.writeFileSync(
   //   "./public/block_Data.json",
-  //   JSON.stringify(student_blockchain.chain)
+  //   JSON.stringify(BlockChain_Meta_info.chain)
   // );
   fs.writeFileSync(
     "./public/block_Data2.json",
-    JSON.stringify(student_blockchain)
+    JSON.stringify(BlockChain_Meta_info)
   );
 });
 
@@ -144,11 +144,11 @@ app.post("/register_brodcast_node", function (req, res) {
   const newNodeUrl = req.body.newNodeUrl;
   // Searches the whole network index of the input index is present or not.
   //if not present return -1 .
-  if (student_blockchain.networkNodes.indexOf(newNodeUrl) == -1)
-    student_blockchain.networkNodes.push(newNodeUrl);
+  if (BlockChain_Meta_info.networkNodes.indexOf(newNodeUrl) == -1)
+    BlockChain_Meta_info.networkNodes.push(newNodeUrl);
 
   const regNodesPromises = [];
-  student_blockchain.networkNodes.forEach((networkNodeUrl) => {
+  BlockChain_Meta_info.networkNodes.forEach((networkNodeUrl) => {
     const requestOption = {
       uri: networkNodeUrl + "/register_node",
       method: "POST",
@@ -166,8 +166,8 @@ app.post("/register_brodcast_node", function (req, res) {
         method: "POST",
         body: {
           allNetworkNodes: [
-            ...student_blockchain.networkNodes,
-            student_blockchain.currentNodeUrl,
+            ...BlockChain_Meta_info.networkNodes,
+            BlockChain_Meta_info.currentNodeUrl,
           ],
         },
         json: true,
@@ -185,10 +185,10 @@ app.post("/register_brodcast_node", function (req, res) {
 app.post("/register_node", function (req, res) {
   const newNodeUrl = req.body.newNodeUrl;
   const nodeNoteAlreaadyPresent =
-    student_blockchain.networkNodes.indexOf(newNodeUrl) == -1;
-  const NotCurrentNode = student_blockchain.currentNodeUrl !== newNodeUrl;
+    BlockChain_Meta_info.networkNodes.indexOf(newNodeUrl) == -1;
+  const NotCurrentNode = BlockChain_Meta_info.currentNodeUrl !== newNodeUrl;
   if (nodeNoteAlreaadyPresent && NotCurrentNode) {
-    student_blockchain.networkNodes.push(newNodeUrl);
+    BlockChain_Meta_info.networkNodes.push(newNodeUrl);
   }
   res.json({
     note: "new node Resgister Scucesfully. ",
@@ -201,10 +201,10 @@ app.post("/register_node_bulk", function (req, res) {
   const allNetworkNodes = req.body.allNetworkNodes;
   allNetworkNodes.forEach((networkNodeUrl) => {
     const nodeNotAlareadyPresent =
-      student_blockchain.networkNodes.indexOf(networkNodeUrl) == -1;
-    const notCurrentNode = student_blockchain.currentNodeUrl !== networkNodeUrl;
+      BlockChain_Meta_info.networkNodes.indexOf(networkNodeUrl) == -1;
+    const notCurrentNode = BlockChain_Meta_info.currentNodeUrl !== networkNodeUrl;
     if (nodeNotAlareadyPresent && notCurrentNode)
-      student_blockchain.networkNodes.push(networkNodeUrl);
+      BlockChain_Meta_info.networkNodes.push(networkNodeUrl);
   });
   res.json({
     note: "new node register_node_bulk Successful. ",
@@ -214,7 +214,7 @@ app.post("/register_node_bulk", function (req, res) {
 // consensus
 app.get("/consensus", function (req, res) {
   const requestPromises = [];
-  student_blockchain.networkNodes.forEach((networkNodeUrl) => {
+  BlockChain_Meta_info.networkNodes.forEach((networkNodeUrl) => {
     const requestOptions = {
       uri: networkNodeUrl + "/blockchain",
       method: "GET",
@@ -224,7 +224,7 @@ app.get("/consensus", function (req, res) {
   });
 
   Promise.all(requestPromises).then((blockchains) => {
-    const currentChainLength = student_blockchain.chain.length;
+    const currentChainLength = BlockChain_Meta_info.chain.length;
     let maxChainLength = currentChainLength;
     let newLongestChain = null;
     let newPendingTransactions = null;
@@ -240,18 +240,18 @@ app.get("/consensus", function (req, res) {
 
     if (
       !newLongestChain ||
-      (newLongestChain && !student_blockchain.chainIsValid(newLongestChain))
+      (newLongestChain && !BlockChain_Meta_info.chainIsValid(newLongestChain))
     ) {
       res.json({
         note: "Current chain has not been replaced.",
-        chain: student_blockchain.chain,
+        chain: BlockChain_Meta_info.chain,
       });
     } else {
-      student_blockchain.chain = newLongestChain;
-      student_blockchain.pendingTransactions = newPendingTransactions;
+      BlockChain_Meta_info.chain = newLongestChain;
+      BlockChain_Meta_info.pendingTransactions = newPendingTransactions;
       res.json({
         note: "This chain has been replaced.",
-        chain: student_blockchain.chain,
+        chain: BlockChain_Meta_info.chain,
       });
     }
   });
@@ -259,12 +259,12 @@ app.get("/consensus", function (req, res) {
 
 app.post("/receieve_new_block", function (req, res) {
   const newBlock = req.body.newBlock;
-  const lastBlock = student_blockchain.getLastBlock();
+  const lastBlock = BlockChain_Meta_info.getLastBlock();
   const correctHash = lastBlock.hash === newBlock.previousBlockHash;
   const correctIndex = lastBlock["index"] + 1 === newBlock["index"];
   if (correctHash && correctIndex) {
-    student_blockchain.chain.push(newBlock);
-    student_blockchain.PendingTransactions = [];
+    BlockChain_Meta_info.chain.push(newBlock);
+    BlockChain_Meta_info.PendingTransactions = [];
     res.json({
       note: "new block Recieved andd acccepted",
       newBlock: newBlock,
@@ -278,29 +278,29 @@ app.post("/receieve_new_block", function (req, res) {
 });
 app.get("/mine", function (req, res) {
   console.log("Mining");
-  var LastBlock = student_blockchain.getLastBlock();
+  var LastBlock = BlockChain_Meta_info.getLastBlock();
   var previousBlockHash = LastBlock["hash"];
   var currentBlockData = {
-    transaction: student_blockchain.ReadyToShip,
+    transaction: BlockChain_Meta_info.ReadyToShip,
     index: LastBlock["index"] + 1,
   };
-  var nonce = student_blockchain.ProofOfWork(
+  var nonce = BlockChain_Meta_info.ProofOfWork(
     previousBlockHash,
     currentBlockData
   );
-  var blockHash = student_blockchain.hashBlock(
+  var blockHash = BlockChain_Meta_info.hashBlock(
     previousBlockHash,
     currentBlockData,
     nonce
   );
-  //student_blockchain.createNewTransaction(12.5, "00", nodeAddress, "mined added data");
-  var newBlock = student_blockchain.createNewBlock(
+  //BlockChain_Meta_info.createNewTransaction(12.5, "00", nodeAddress, "mined added data");
+  var newBlock = BlockChain_Meta_info.createNewBlock(
     nonce,
     previousBlockHash,
     blockHash
   );
   var requestPromises = [];
-  // student_blockchain.networkNodes.forEach(function (networkNodeUrl) {
+  // BlockChain_Meta_info.networkNodes.forEach(function (networkNodeUrl) {
   //     var requestOptions = {
   //         uri: networkNodeUrl + "/receieve_new_block",
   //         method: "POST",
@@ -311,11 +311,11 @@ app.get("/mine", function (req, res) {
   //     };
   //     requestPromises.push(rp(requestOptions));
   // });
-  // console.log(student_blockchain.currentNodeUrl);
+  // console.log(BlockChain_Meta_info.currentNodeUrl);
   // Promise.all(requestPromises)
   //     .then(function (data) {
   //         var requestOptions = {
-  //             uri: student_blockchain.currentNodeUrl + "/transaction/broadcast",
+  //             uri: BlockChain_Meta_info.currentNodeUrl + "/transaction/broadcast",
   //             method: "POST",
   //             json: true,
   //         };
@@ -328,14 +328,14 @@ app.get("/mine", function (req, res) {
   });
   //     });
   fs.writeFileSync(
-    "./public/block_Data.json",
-    JSON.stringify(student_blockchain)
+    "./public/block_Data3.json",
+    JSON.stringify(BlockChain_Meta_info)
   );
 });
 
 app.get("/block/:blockHash", function (req, res) {
   const blockHash = req.params.blockHash;
-  const correctBlock = student_blockchain.getBlock(blockHash);
+  const correctBlock = BlockChain_Meta_info.getBlock(blockHash);
 
   res.json({
     block: correctBlock,
@@ -345,7 +345,7 @@ app.get("/block/:blockHash", function (req, res) {
 
 app.get("/transaction/:transactionId", function (req, res) {
   const transactionId = req.params.transactionId;
-  const TransactionData = student_blockchain.getTransactionId(transactionId);
+  const TransactionData = BlockChain_Meta_info.getTransactionId(transactionId);
   res.json({
     transaction: TransactionData.transaction,
     block: TransactionData.block,
@@ -355,7 +355,7 @@ app.get("/transaction/:transactionId", function (req, res) {
 
 app.get("/address/:address", function (req, res) {
   const address = req.params.address;
-  const addressData = student_blockchain.getAddressData(address);
+  const addressData = BlockChain_Meta_info.getAddressData(address);
   res.json({
     addressData: addressData,
   });
@@ -377,7 +377,7 @@ app.get("/store_dhaka", function (req, res) {
 wss.on("connection", (ws) => {
   ws.id = "Someone COnnected to network" + "NO ID FOUND. CHECK HERE";
   console.log(`${ws.id} Connected`);
-  ws.send(JSON.stringify(student_blockchain.chain));
+  ws.send(JSON.stringify(BlockChain_Meta_info.chain));
 
   //   ws.on("message", function (message) {
   //     sendAll(JSON.stringify(ReadBlock_ChainData));

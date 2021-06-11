@@ -25,7 +25,7 @@ Blockchain.prototype.createNewBlock = function (
 ) {
   const newBlock = {
     index: this.chain.length + 1,
-    timeStamp: new Date().toLocaleTimeString() + " May 2021",
+    timeStamp: new Date().toLocaleTimeString() + " June 2021",
     transaction: this.PendingTransactions,
     product_info: this.ReadyToShip,
     nonce: nonce,

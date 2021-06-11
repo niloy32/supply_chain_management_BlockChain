@@ -68,12 +68,12 @@
     "PendingTransactions": [],
     "ReadyToShip": [
         {
-            "name": "test",
-            "Description": "XX",
-            "Manufacture_location": "china",
-            "Batch": "669",
-            "img_url": "ad",
-            "Manufacture_date": "2021-05-31"
+            "name": "One Plus Nord",
+            "Description": "OnePlus Nord · Released 2020, August 04 · 184g, 8.2mm thickness · Android 10, up to Android 11",
+            "Manufacture_location": "China",
+            "Batch": "54253135",
+            "img_url": "https://fdn2.gsmarena.com/vv/pics/oneplus/oneplus-nord-2.jpg",
+            "Manufacture_date": "2021-06-11"
         }
     ],
     "currentNodeUrl": "http://localhost:3501",

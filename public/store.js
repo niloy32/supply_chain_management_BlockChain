@@ -25,10 +25,9 @@ var ReadBlock_ChainData;
 readTextFile("block_Data3.json", function (text) {
     ReadBlock_ChainData = JSON.parse(text);
     console.log(ReadBlock_ChainData);
-    var hash_array = [];
-    for (var index = 1; index < ReadBlock_ChainData.chain.length; index++) {
 
-        if (ReadBlock_ChainData.chain[index].ShippedToStore == false) {
+    for (var index = 1; index < ReadBlock_ChainData.chain.length; index++) {
+        if (ReadBlock_ChainData.chain[index].ShippedToStore == true) {
             var Card_template = document.createElement("div");
             Card_template.setAttribute("class", "icards");
             Card_template.innerHTML = `<div class="card" style="width: 18rem;">
@@ -106,49 +105,3 @@ ws.addEventListener("message", ({
         }
     }
 });
-
-
-if (typeof web3 !== 'undefined') {
-    web3 = new Web3(web3.currentProvider);
-} else {
-    // set the provider you want from Web3.providers
-    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-}
-
-web3.eth.defaultAccount = web3.eth.accounts[0];
-
-
-var CorContact = web3.eth.contact([{
-        "constant": false,
-        "inputs": [{
-            "name": "_value",
-            "type": "string"
-        }],
-        "name": "set",
-        "outputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "constant": true,
-        "inputs": [],
-        "name": "get",
-        "outputs": [{
-            "name": "",
-            "type": "string"
-        }],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-    }
-])
-
-
-var corset = CorContact.at()

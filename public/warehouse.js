@@ -93,7 +93,7 @@ readTextFile("block_Data3.json", function (text) {
 
   function render_list() {
     for (var index = 1; index < ReadBlock_ChainData.chain.length; index++) {
-      if (ReadBlock_ChainData.chain[index].ShippedToStore != true) {
+      if (ReadBlock_ChainData.chain[index].ShippedToStore != false) {
         console.log(ReadBlock_ChainData.chain[index].ShippedToStore);
 
         //var Card_template = document.createElement("div");
@@ -154,7 +154,7 @@ readTextFile("block_Data3.json", function (text) {
         document.getElementById(ReadBlock_ChainData.chain[index].hash).addEventListener("click", function () {
           ReadBlock_ChainData.chain.forEach(element => {
             if (element.hash == this.id) {
-              element.ShippedToStore = false;
+              element.ShippedToStore = true;
               element.Retail_store = document.getElementById("Retail_store").value;
               console.log(document.getElementById("Retail_store").value);
               console.log(element);

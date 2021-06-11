@@ -68,11 +68,21 @@
                             <td class="bold">Previous Hash</td>
                             <td>{{ block.previousBlockHash }}</td>
                         </tr>
-
                         <tr>
-                            <td class="bold">Number courses</td>
-                            <td>{{ block.courses }}</td>
-                            <td>{{ block.courses.studentName }}</td>
+                            <td class="bold">Name </td>
+                            <td>{{block.product_info[0].name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="bold">Description </td>
+                            <td>{{block.product_info[0].Description }}</td>
+                        </tr>
+                        <tr>
+                            <td class="bold">Batch </td>
+                            <td>{{block.product_info[0].Batch }}</td>
+                        </tr>
+                        <tr>
+                            <td class="bold">Manufacture Location</td>
+                            <td>{{ block.product_info[0].Manufacture_location }}</td>
                         </tr>
                     </tbody>
                 </table>
